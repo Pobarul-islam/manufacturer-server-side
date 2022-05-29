@@ -59,7 +59,7 @@ async function run() {
             res.send(service);
         });
         app.get('/orders', async (req, res) => {
-            const result = await orderCollection.find().toArray()
+            const result = await orderCollection.find({}).toArray()
             res.send(result)
         })
         app.get('/order/:id', async (req, res) => {
