@@ -78,6 +78,12 @@ async function run() {
             res.send({ success: true, result })
         })
 
+
+        app.get('/parts', async (req, res) => {
+            const result = await partsCollection.find().toArray()
+            res.send(result)
+        })
+
         //api for review
         app.get('/review', async (req, res) => {
             const result = await reviewCollection.find().toArray()
@@ -142,6 +148,9 @@ async function run() {
 
     }
 }
+
+
+// Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus, natus.
 
 
 // app.get('/hero', (req, res) => {
