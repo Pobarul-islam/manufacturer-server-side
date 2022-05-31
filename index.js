@@ -20,7 +20,7 @@ async function run() {
         const serviceCollection = client.db('manufecturer-tools').collection('tools');
 
         const partsCollection = client.db('mountain-bicycle').collection('parts')
-        const orderCollection = client.db('mountain-bicycle').collection('orders')
+        const orderCollection = client.db('manufecturer-tools').collection('orders')
         const reviewCollection = client.db('mountain-bicycle').collection('review')
         const profileCollection = client.db('mountain-bicycle').collection('profile')
         const userCollection = client.db('mountain-bicycle').collection('user')
@@ -41,12 +41,19 @@ async function run() {
         });
 
 
+        app.get('/userdetails', async (req, res) => {
+            const query = {};
+            const cursor = serviceCollection.find(query);
+            const services = await cursor.toArray();
+            res.send(services);
+        })
         app.get('/tools', async (req, res) => {
             const query = {};
             const cursor = serviceCollection.find(query);
             const services = await cursor.toArray();
             res.send(services);
         })
+
         app.post('/tools', async (req, res) => {
             const newProduct = req.body
             const result = await serviceCollection.insertOne(newProduct)
