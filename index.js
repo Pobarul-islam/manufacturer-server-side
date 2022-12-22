@@ -6,8 +6,10 @@ const app = express()
 const port = process.env.PORT || 5000;
 const jwt = require('jsonwebtoken')
 
+
 app.use(cors());
 app.use(express.json());
+
 
 
 const uri = `mongodb+srv://dbUser1:test1234@cluster0.wj7gs.mongodb.net/?retryWrites=true&w=majority`;
@@ -24,6 +26,7 @@ async function run() {
         const reviewCollection = client.db('mountain-bicycle').collection('review')
         const profileCollection = client.db('mountain-bicycle').collection('profile')
         const userCollection = client.db('mountain-bicycle').collection('user')
+       
 
 
 
@@ -122,6 +125,11 @@ async function run() {
             const result = await reviewCollection.insertOne(newData)
             res.send({ success: true, result })
         })
+
+        // message
+      
+
+        
 
         //api for Profile
         app.get('/profile', async (req, res) => {
