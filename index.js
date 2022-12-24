@@ -30,37 +30,37 @@ async function run() {
 
 
 
-        app.put('/user/:email', async (req, res) => {
-            const email = req.params.email;
-            const user = req.body;
-            const filter = { email: email };
-            const options = { upsert: true };
-            const updateDoc = {
-                $set: user,
-            };
-            const result = await userCollection.updateOne(filter, updateDoc, options);
-            const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
-            res.send({ result, token });
-        });
+        // app.put('/user/:email', async (req, res) => {
+        //     const email = req.params.email;
+        //     const user = req.body;
+        //     const filter = { email: email };
+        //     const options = { upsert: true };
+        //     const updateDoc = {
+        //         $set: user,
+        //     };
+        //     const result = await userCollection.updateOne(filter, updateDoc, options);
+        //     const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' })
+        //     res.send({ result, token });
+        // });
 
 
-        // // Auth
+        // // // Auth
 
-        app.post('/login', async (req, res) => {
-            const user = req.body;
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-                expiresIn: '1d'
-            })
-            res.send({ accessToken });
-        })
+        // app.post('/login', async (req, res) => {
+        //     const user = req.body;
+        //     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        //         expiresIn: '1d'
+        //     })
+        //     res.send({ accessToken });
+        // })
 
 
-        app.get('/userdetails', async (req, res) => {
-            const query = {};
-            const cursor = serviceCollection.find(query);
-            const services = await cursor.toArray();
-            res.send(services);
-        })
+        // app.get('/userdetails', async (req, res) => {
+        //     const query = {};
+        //     const cursor = serviceCollection.find(query);
+        //     const services = await cursor.toArray();
+        //     res.send(services);
+        // })
         app.get('/tools', async (req, res) => {
             const query = {};
             const cursor = serviceCollection.find(query);
@@ -68,105 +68,105 @@ async function run() {
             res.send(services);
         })
 
-        app.post('/tools', async (req, res) => {
-            const newProduct = req.body
-            const result = await serviceCollection.insertOne(newProduct)
-            res.send(result)
-        })
-        app.get('/tools/:id', async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
-            const service = await serviceCollection.findOne(query);
-            res.send(service);
-        });
-        app.get('/orders', async (req, res) => {
-            const result = await orderCollection.find({}).toArray()
-            res.send(result)
-        })
-        app.get('/order/:id', async (req, res) => {
-            const id = req.params.id
-            const result = await orderCollection.findOne({ _id: ObjectId(id) })
-            res.send(result)
-        })
-        app.delete('/order/:id', async (req, res) => {
-            const id = req.params.id
-            const result = await orderCollection.deleteOne({ _id: ObjectId(id) })
-            res.send(result)
-        })
-        app.post('/order', async (req, res) => {
-            const newData = req.body
-            const result = await orderCollection.insertOne(newData)
-            res.send({ success: true, result })
-        })
+        // app.post('/tools', async (req, res) => {
+        //     const newProduct = req.body
+        //     const result = await serviceCollection.insertOne(newProduct)
+        //     res.send(result)
+        // })
+        // app.get('/tools/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const query = { _id: ObjectId(id) };
+        //     const service = await serviceCollection.findOne(query);
+        //     res.send(service);
+        // });
+        // app.get('/orders', async (req, res) => {
+        //     const result = await orderCollection.find({}).toArray()
+        //     res.send(result)
+        // })
+        // app.get('/order/:id', async (req, res) => {
+        //     const id = req.params.id
+        //     const result = await orderCollection.findOne({ _id: ObjectId(id) })
+        //     res.send(result)
+        // })
+        // app.delete('/order/:id', async (req, res) => {
+        //     const id = req.params.id
+        //     const result = await orderCollection.deleteOne({ _id: ObjectId(id) })
+        //     res.send(result)
+        // })
+        // app.post('/order', async (req, res) => {
+        //     const newData = req.body
+        //     const result = await orderCollection.insertOne(newData)
+        //     res.send({ success: true, result })
+        // })
 
 
-        app.get('/parts', async (req, res) => {
-            const result = await partsCollection.find().toArray()
-            res.send(result)
-        })
+        // app.get('/parts', async (req, res) => {
+        //     const result = await partsCollection.find().toArray()
+        //     res.send(result)
+        // })
 
-        //api for review
-        app.get('/review', async (req, res) => {
-            const result = await reviewCollection.find().toArray()
-            res.send(result)
-        })
-        app.get('/review/:id', async (req, res) => {
-            const id = req.params.id
-            const result = await reviewCollection.findOne({ _id: ObjectId(id) })
-            res.send(result)
-        })
-        app.delete('/review/:id', async (req, res) => {
-            const id = req.params.id
-            const result = await reviewCollection.deleteOne({ _id: ObjectId(id) })
-            res.send(result)
-        })
-        app.post('/review', async (req, res) => {
-            const newData = req.body
-            const result = await reviewCollection.insertOne(newData)
-            res.send({ success: true, result })
-        })
+        // //api for review
+        // app.get('/review', async (req, res) => {
+        //     const result = await reviewCollection.find().toArray()
+        //     res.send(result)
+        // })
+        // app.get('/review/:id', async (req, res) => {
+        //     const id = req.params.id
+        //     const result = await reviewCollection.findOne({ _id: ObjectId(id) })
+        //     res.send(result)
+        // })
+        // app.delete('/review/:id', async (req, res) => {
+        //     const id = req.params.id
+        //     const result = await reviewCollection.deleteOne({ _id: ObjectId(id) })
+        //     res.send(result)
+        // })
+        // app.post('/review', async (req, res) => {
+        //     const newData = req.body
+        //     const result = await reviewCollection.insertOne(newData)
+        //     res.send({ success: true, result })
+        // })
 
-        // message
+        // // message
       
 
         
 
-        //api for Profile
-        app.get('/profile', async (req, res) => {
-            const result = await profileCollection.find().toArray()
-            res.send(result)
-        })
-        app.get('/profile/:email', async (req, res) => {
-            const email = req.params.email
-            const result = await profileCollection.findOne({ email: email })
-            res.send(result)
-        })
-        app.delete('/profile/:email', async (req, res) => {
-            const id = req.params.id
-            const result = await profileCollection.deleteOne({ _id: ObjectId(id) })
-            res.send(result)
-        })
-        app.put('/profile/:email', async (req, res) => {
-            const email = req.params.email;
-            const user = req.body;
-            const userRes = await profileCollection.findOne({ email: email })
-            if (userRes) {
-                const filter = { email: email };
-                const options = { upsert: true };
-                const others = user.others
-                const updateDoc = {
-                    $set: others
-                };
-                const result = await profileCollection.updateOne(filter, updateDoc, options);
-                res.send(result)
-            }
-            else {
-                const result = await profileCollection.insertOne(user)
-                res.send(result)
-            }
+        // //api for Profile
+        // app.get('/profile', async (req, res) => {
+        //     const result = await profileCollection.find().toArray()
+        //     res.send(result)
+        // })
+        // app.get('/profile/:email', async (req, res) => {
+        //     const email = req.params.email
+        //     const result = await profileCollection.findOne({ email: email })
+        //     res.send(result)
+        // })
+        // app.delete('/profile/:email', async (req, res) => {
+        //     const id = req.params.id
+        //     const result = await profileCollection.deleteOne({ _id: ObjectId(id) })
+        //     res.send(result)
+        // })
+        // app.put('/profile/:email', async (req, res) => {
+        //     const email = req.params.email;
+        //     const user = req.body;
+        //     const userRes = await profileCollection.findOne({ email: email })
+        //     if (userRes) {
+        //         const filter = { email: email };
+        //         const options = { upsert: true };
+        //         const others = user.others
+        //         const updateDoc = {
+        //             $set: others
+        //         };
+        //         const result = await profileCollection.updateOne(filter, updateDoc, options);
+        //         res.send(result)
+        //     }
+        //     else {
+        //         const result = await profileCollection.insertOne(user)
+        //         res.send(result)
+        //     }
 
 
-        })
+        // })
 
 
     }
